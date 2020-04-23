@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/hashicorp/terraform/plugin"
-	"github.com/terraform-providers/terraform-provider-template/template"
+	"github.com/hashicorp/terraform-plugin-sdk/plugin"
+	"github.com/terrycain/terraform-provider-commandpersistence/commandpersistence"
 )
 
 func main() {
 	plugin.Serve(&plugin.ServeOpts{
-		ProviderFunc: template.Provider})
+		ProviderFunc: commandpersistence.Provider})
 }
