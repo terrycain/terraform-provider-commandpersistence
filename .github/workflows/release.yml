@@ -171,8 +171,8 @@ jobs:
       - name: Get gon
         run: wget https://github.com/mitchellh/gon/releases/download/v0.2.3/gon_macos.zip && unzip gon_macos.zip && chmod +x gon
 
-      - name: Build
-        run: gon gon_config.hcl
+      - name: Sign
+        run: ./gon gon_config.hcl
         env:
           APPLE_APP_PW: ${{ secrets.APPLE_APP_PW}}
 
