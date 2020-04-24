@@ -79,9 +79,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} 
-          asset_path: ./build/terraform-provider-commandpersistence-darwin-amd64
-          asset_name: terraform-provider-commandpersistence-darwin-amd64
-          asset_content_type: application/octet-stream
+          asset_path: ./build/terraform-provider-commandpersistence-darwin-amd64.zip
+          asset_name: terraform-provider-commandpersistence-darwin-amd64.zip
+          asset_content_type: application/zip
 
       - name: Upload Release Asset Linux 386
         uses: actions/upload-release-asset@v1
@@ -172,7 +172,7 @@ jobs:
         run: wget https://github.com/mitchellh/gon/releases/download/v0.2.3/gon_macos.zip && unzip gon_macos.zip && chmod +x gon
 
       - name: Build
-        run: make mac_release
+        run: gon gon_config.hcl
         env:
           APPLE_APP_PW: ${{ secrets.APPLE_APP_PW}}
 
