@@ -41,7 +41,7 @@ func TestResourceCmd_basic(t *testing.T) {
 			{
 				Config: fmt.Sprintf(testDataSourceConfig_basic, programPath),
 				Check: func(s *terraform.State) error {
-					_, ok := s.RootModule().Resources["commandpersistence.test"]
+					_, ok := s.RootModule().Resources["commandpersistence_cmd.test"]
 					if !ok {
 						return fmt.Errorf("missing data resource")
 					}
@@ -106,7 +106,7 @@ func buildDataSourceTestProgram() (string, error) {
 	// We have a simple Go program that we use as a stub for testing.
 	cmd := exec.Command(
 		"go", "install",
-		"github.com/terraform-providers/terraform-provider-external/external/test-programs/tf-acc-external-data-source",
+		"github.com/terrycain/terraform-provider-commandpersistence/commandpersistence/test-programs/tf-acc-external-data-source",
 	)
 	err := cmd.Run()
 

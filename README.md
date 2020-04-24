@@ -7,11 +7,6 @@ Terraform Provider
 
 <img src="https://cdn.rawgit.com/hashicorp/terraform-website/master/content/source/assets/images/logo-hashicorp.svg" width="600px">
 
-Maintainers
------------
-
-This provider plugin is maintained by the Terraform team at [HashiCorp](https://www.hashicorp.com/).
-
 Requirements
 ------------
 
@@ -21,27 +16,35 @@ Requirements
 Usage
 ---------------------
 
+Near identical to the `external` provider except the command is run once on create, and never again.
+
 ```
 # For example, restrict template version in 0.1.x
-provider "template" {
-  version = "~> 0.1"
+resource "commandpersistence_cmd" "example" {
+  program = ["python3", "${path.root}/example.py"]
+
+  query = {
+    # arbitrary map from strings to strings, passed
+    # to the external program as the data query.
+    id = "abc123"
+  }
 }
 ```
 
 Building The Provider
 ---------------------
 
-Clone repository to: `$GOPATH/src/github.com/terraform-providers/terraform-provider-template`
+Clone repository to: `$GOPATH/src/github.com/terrycain/terraform-provider-commandpersistence`
 
 ```sh
-$ mkdir -p $GOPATH/src/github.com/terraform-providers; cd $GOPATH/src/github.com/terraform-providers
-$ git clone git@github.com:terraform-providers/terraform-provider-template
+$ mkdir -p $GOPATH/src/github.com/terrycain; cd $GOPATH/src/github.com/terrycain
+$ git clone git@github.com:terrycain/terraform-provider-commandpersistence
 ```
 
 Enter the provider directory and build the provider
 
 ```sh
-$ cd $GOPATH/src/github.com/terraform-providers/terraform-provider-template
+$ cd $GOPATH/src/github.com/terrycain/terraform-provider-commandpersistence
 $ make build
 ```
 
@@ -59,7 +62,7 @@ To compile the provider, run `make build`. This will build the provider and put 
 ```sh
 $ make build
 ...
-$ $GOPATH/bin/terraform-provider-template
+$ $GOPATH/bin/terraform-provider-commandpersistence
 ...
 ```
 

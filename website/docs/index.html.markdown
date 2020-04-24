@@ -1,38 +1,31 @@
 ---
-layout: "template"
-page_title: "Provider: Template"
-sidebar_current: "docs-template-index"
+layout: "commandpersistence"
+page_title: "Provider: CommandPersistence"
+sidebar_current: "docs-commandpersistence-index"
 description: |-
-  The Template provider is used to template strings for other Terraform resources.
+  The CommandPersistence provider is used to store the output of a command in a resource.
 ---
 
-# Template Provider
+# CommandPersistence Provider
 
-The template provider exposes data sources to use templates to generate
-strings for other Terraform resources or outputs.
+The commandpersistence provider works just like the external provider but instead of a data source, a resource is declared.
 
 Use the navigation to the left to read about the available data sources.
 
 ## Example Usage
 
 ```hcl
-# Template for initial configuration bash script
-data "template_file" "init" {
-  template = "${file("init.tpl")}"
-  vars = {
-    consul_address = "${aws_instance.consul.private_ip}"
+resource "commandpersistence_cmd" "example" {
+  program = ["python3", "${path.root}/example.py"]
+
+  query = {
+    # arbitrary map from strings to strings, passed
+    # to the external program as the data query.
+    id = "abc123"
   }
 }
 
-# Create a web server
-resource "aws_instance" "web" {
-  # ...
-
-  user_data = "${data.template_file.init.rendered}"
+output "example_output" {
+    value = commandpersistence_cmd.example.result
 }
 ```
-
-For Terraform 0.12 and later, the `template_file` data source has been
-superseded by [the `templatefile` function](/docs/configuration/functions/templatefile.html),
-which can be used directly in expressions without creating a separate data
-resource.
