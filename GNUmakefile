@@ -3,7 +3,19 @@ GOFMT_FILES?=$$(find . -name '*.go' |grep -v vendor)
 WEBSITE_REPO=github.com/hashicorp/terraform-website
 PKG_NAME=commandpersistence
 
+PLATFORMS := darwin/386 linux/386 linux/amd64 linux/arm64 linux/arm windows/amd64 darwin/amd64
+
+temp = $(subst /, ,$@)
+os = $(word 1, $(temp))
+arch = $(word 2, $(temp))
+
 default: build
+
+build_all: $(PLATFORMS)
+
+$(PLATFORMS):
+	mkdir -p build
+	GOOS=$(os) GOARCH=$(arch) go build -ldflags="-s -w" -o 'build/terrafmt-$(os)-$(arch)'
 
 build: fmtcheck
 	go install
