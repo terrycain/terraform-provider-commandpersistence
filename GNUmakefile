@@ -15,7 +15,7 @@ build_all: $(PLATFORMS)
 
 $(PLATFORMS):
 	mkdir -p build
-	GOOS=$(os) GOARCH=$(arch) go build -ldflags="-s -w" -o 'build/terrafmt-$(os)-$(arch)'
+	GOOS=$(os) GOARCH=$(arch) go build -ldflags="-s -w" -o 'build/terraform-provider-commandpersistence-$(os)-$(arch)'
 
 build: fmtcheck
 	go install
