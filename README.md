@@ -11,7 +11,7 @@ Requirements
 ------------
 
 -	[Terraform](https://www.terraform.io/downloads.html) 0.10.x
--	[Go](https://golang.org/doc/install) 1.11 (to build the provider plugin)
+-	[Go](https://golang.org/doc/install) 1.16 (to build the provider plugin)
 
 Usage
 ---------------------
@@ -24,7 +24,7 @@ resource "commandpersistence_cmd" "example" {
   program = ["python3", "${path.root}/example.py"]
 
   query = {
-    # arbitrary map from strings to strings, passed
+    # arbitrary map of string -> string, passed
     # to the external program as the data query.
     id = "abc123"
   }
@@ -79,3 +79,8 @@ In order to run the full suite of Acceptance tests, run `make testacc`.
 ```sh
 $ make testacc
 ```
+
+Making a release
+----------------
+
+Create a tag like v1.0.0 and the GitHub Actions CI will do the rest.
